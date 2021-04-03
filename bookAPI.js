@@ -11,7 +11,7 @@ exports.createBook = (req, res) => {
     book.save((err, result) => {
         if(err) {
             return res.status(400).json({
-                error : "error in create to db"
+                msg : 'Product not created properly'
             })
         }
         res.json(result);
@@ -22,10 +22,9 @@ exports.read = (req, res) => {
     Book.find((err, result) => {
         if(err) {
             return res.status(400).json({
-                error : "error in showing book from db"
+                msg : "error in showing book from db"
             })
         }
-
         res.json(result);
     })
 }
@@ -34,7 +33,7 @@ exports.findByBookId = (req, res,next, id) => {
    Book.findById(id).exec((err, book) => {
      if(err || !book) {
         return res.status(400).json({
-            error : "product not found"
+            msg : "product not found"
         });
      }
        req.book = book;
