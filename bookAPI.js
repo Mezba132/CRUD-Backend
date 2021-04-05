@@ -47,17 +47,21 @@ exports.booklist = (req, res) => {
 
 exports.postEditProduct = (req, res, next) => {
 
-    let { title, author, year } = req.body;
+    let id = req.book._id;
 
-    let book = new Book({ title: title, author: author, year: year});
-
-    book.save((err, result) => {
-        if(err) {
-            return res.status(400).json({
-                msg : 'Product not update properly'
-            })
-        }
-        res.json(result);
-    })    
+    Book.findById(id)
+        .then(book => {
+          book.title = req.body.title;
+          book.author = req.body.author;
+          book.year = req.body.year;
+          return book.save();
+        })
+        .then(result => {
+          res.json(result);
+        })
+        .catch(err => {
+              return res.status(400).json({
+                  msg : 'Product not update properly'
+              })
+        })
 }
-
