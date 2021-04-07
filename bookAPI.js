@@ -45,7 +45,7 @@ exports.booklist = (req, res) => {
   return res.json(req.book);
 }
 
-exports.postEditProduct = (req, res, next) => {
+exports.postEditBook = (req, res, next) => {
 
     let id = req.book._id;
 
@@ -64,4 +64,19 @@ exports.postEditProduct = (req, res, next) => {
                   msg : 'Product not update properly'
               })
         })
+}
+
+exports.deleteBook = (req, res, next) => {
+  const bId = req.book;
+  Book.deleteOne()
+      .then(() => {
+        res.json({
+             msg:"Book Deleted successfully"
+          })
+      })
+      .catch(() => {
+          return res.status(400).json({
+              msg : 'Book is not deleted properly'
+          })
+      })
 }
