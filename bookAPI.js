@@ -55,9 +55,9 @@ exports.postEditBook = (req, res, next) => {
 }
 
 exports.deleteBook = (req, res, next) => {
-  let bId = req.book;
+  let bId = req.book._id;
 
-  Book.deleteOne()
+  Book.deleteOne({_id : bId})
       .then(() => {
         res.json({
              msg:"Book Deleted successfully"
